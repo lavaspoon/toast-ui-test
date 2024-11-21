@@ -1,9 +1,10 @@
 package lava.toastuitest.domain;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,6 +19,10 @@ public class Board {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="video_id", referencedColumnName = "id")
+    private Video video;
 
     public Board(String content) {
         this.content = content;

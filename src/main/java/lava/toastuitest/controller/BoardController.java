@@ -1,9 +1,12 @@
 package lava.toastuitest.controller;
 
 import lava.toastuitest.domain.Board;
+import lava.toastuitest.domain.BoardDTO;
 import lava.toastuitest.service.BoardService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -19,13 +22,14 @@ public class BoardController {
 
     // 데이터 저장
     @PostMapping
-    public void addContent(@RequestBody String content) {
-        boardService.save(content);
+    public Board addContent(@RequestParam("content") String content,
+                            @RequestParam("video") MultipartFile videoFile) throws IOException {
+        return boardService.save(content, videoFile);
     }
 
-    // 데이터 조회
     @GetMapping
-    public List<Board> getContents() {
+    public List<BoardDTO> getAllBoards() {
         return boardService.findAll();
     }
+
 }
